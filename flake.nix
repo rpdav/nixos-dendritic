@@ -6,9 +6,16 @@
   outputs = {
     self,
     nixpkgs,
-  }: {
-    nixosConfigurations.testvm = nixpkgs.legacyPackages.x86_64-linux.nixos [
-      ./configuration.nix
-    ];
+    ...
+  } @ inputs: {
+    nixosConfigurations.dendritic = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = {
+        inherit inputs;
+      };
+      modules = [
+        ./configuration.nix
+      ];
+    };
   };
 }

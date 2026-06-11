@@ -28,7 +28,7 @@
     };
   };
 
-  networking.hostName = "testvm";
+  networking.hostName = "dendritic";
 
   # Create ssh host keys to import into sops if they don't already exist in backup
   services.openssh = {

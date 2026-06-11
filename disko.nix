@@ -2,7 +2,7 @@
   disko.devices = {
     disk = {
       vdb = {
-        device = "/dev/vdb";
+        device = "/dev/vda";
         type = "disk";
         content = {
           type = "gpt";
