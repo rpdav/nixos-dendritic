@@ -3,7 +3,7 @@
   self,
   ...
 }: {
-  flake.nixosModules.ext4Disk = {...}: {
+  flake.diskoConfigurations.ext4Disk = {...}: {
     imports = [inputs.disko.nixosModules.disko];
     disko.devices = {
       disk = {
