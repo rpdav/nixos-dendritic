@@ -3,8 +3,11 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.userRyan = {...}: {
-    imports = [inputs.home-manager.nixosModules.home-manager];
+  #imports = [inputs.home-manager.flakeModules.home-manager];
+  flake.nixosModules.userRyan = {pkgs, ...}: {
+    imports = [
+      inputs.home-manager.nixosModules.home-manager
+    ];
     users.users.ryan = {
       # the hash below is for the password `changeme` - obviously only use this for this bare-bones installl config
       hashedPassword = "$6$7y9RbBEMGo1Fx.Pr$rM1PReeNvbKM1QCQvrNJ5BAYY3SlYDr49MTT0j6wv7cz5p0ezPz8ddihkyutowzEie1.NGFxzSpfawY0s9L2q1";
@@ -14,7 +17,12 @@
     };
     home-manager = {
       #useUserPackages = true;
-      users.ryan = self.homeConfigurations.ryanDendritic;
+      users.ryan = {
+        home.username = "ryan";
+        home.homeDirectory = "/home/ryan";
+        home.stateVersion = "26.05";
+        home.packages = with pkgs; [cowsay];
+      };
       #users.ryan = import (configLib.relativeToRoot "home/ryan/${config.networking.hostName}.nix");
       #extraSpecialArgs = {
       #  inherit nixpkgs-stable;
@@ -25,4 +33,11 @@
       #};
     };
   };
+  #flake.homeConfigurations.ryanDendritic = {pkgs, ...}: {
+  #  home.username = "ryan";
+  #  home.homeDirectory = "/home/ryan";
+
+  #  home.stateVersion = "26.05"; # don't change without reading release notes
+  #  home.packages = with pkgs; [cowsay];
+  #};
 }
