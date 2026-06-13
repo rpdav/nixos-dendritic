@@ -41,6 +41,7 @@
   flake.homeConfigurations.ryanDendritic = inputs.home-manager.lib.homeManagerConfiguration {
     pkgs = inputs.nixpkgs.legacyPackages."x86_64-linux";
     modules = [
+      self.homeModules.starship
       ({pkgs, ...}: {
         home.username = "ryan";
         home.homeDirectory = "/home/ryan";
